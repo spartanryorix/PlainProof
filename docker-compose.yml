@@ -1,0 +1,11 @@
+services:
+  plainproof:
+    build: .
+    ports:
+      - "3000:3000"
+    env_file: .env
+    volumes:
+      - plainproof-data:/data
+    restart: unless-stopped
+volumes:
+  plainproof-data:

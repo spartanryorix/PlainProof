@@ -1,0 +1,190 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Design tokens. Change the palette here; components only use the semantic names. */
+:root {
+  --font-inter: 'Inter Variable';
+  --font-jakarta: 'Plus Jakarta Sans Variable';
+  --font-noto-arabic: 'Noto Sans Arabic Variable';
+  --font-noto-tamil: 'Noto Sans Tamil Variable';
+  --font-lexend-family: 'Lexend Variable';
+  --font-atkinson-family: 'Atkinson Hyperlegible';
+  --bg: #f7f7f5;
+  --bg-subtle: #f0f0ed;
+  --surface: #ffffff;
+  --surface-2: #fafaf8;
+  --border: #e4e4df;
+  --border-strong: #cfcfc8;
+  --text: #17181b;
+  --text-2: #4d4f57;
+  --text-3: #80828b;
+  --accent: #3550c8;
+  --accent-hover: #2a42ad;
+  --accent-fg: #ffffff;
+  --accent-soft: #eaeefc;
+  --accent-ring: rgb(53 80 200 / 0.28);
+  --ok: #1b7a4b;
+  --ok-soft: #e4f3ea;
+  --ok-line: #9fd2b5;
+  --warn: #9a5b00;
+  --warn-soft: #fbf0d8;
+  --warn-line: #ecc77c;
+  --bad: #b3261e;
+  --bad-soft: #fbe6e3;
+  --bad-line: #eeaba4;
+  --none-soft: #ececef;
+  --speak: #fff1b3;
+  --shadow-sm: 0 1px 2px rgb(16 17 20 / 0.05);
+  --shadow: 0 1px 2px rgb(16 17 20 / 0.04), 0 8px 28px rgb(16 17 20 / 0.06);
+  --shadow-lg: 0 24px 64px rgb(16 17 20 / 0.16);
+  color-scheme: light;
+}
+
+[data-theme='dark'] {
+  --bg: #0f1013;
+  --bg-subtle: #15161a;
+  --surface: #17181c;
+  --surface-2: #1c1d22;
+  --border: #2a2b31;
+  --border-strong: #3a3c44;
+  --text: #ecedf0;
+  --text-2: #b4b6bf;
+  --text-3: #80838e;
+  --accent: #8ea2ff;
+  --accent-hover: #a9b8ff;
+  --accent-fg: #0f1013;
+  --accent-soft: #1e2440;
+  --accent-ring: rgb(142 162 255 / 0.35);
+  --ok: #6fd39c;
+  --ok-soft: #143023;
+  --ok-line: #2c6a49;
+  --warn: #f1bd5d;
+  --warn-soft: #33270f;
+  --warn-line: #75561c;
+  --bad: #ff8e85;
+  --bad-soft: #3a1917;
+  --bad-line: #7d302a;
+  --none-soft: #26272d;
+  --speak: #4b4214;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 28px rgb(0 0 0 / 0.35);
+  --shadow-lg: 0 24px 64px rgb(0 0 0 / 0.55);
+  color-scheme: dark;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-text: var(--text);
+  --color-text-2: var(--text-2);
+  --color-text-3: var(--text-3);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-fg: var(--accent-fg);
+  --color-accent-soft: var(--accent-soft);
+  --color-ok: var(--ok);
+  --color-ok-soft: var(--ok-soft);
+  --color-warn: var(--warn);
+  --color-warn-soft: var(--warn-soft);
+  --color-bad: var(--bad);
+  --color-bad-soft: var(--bad-soft);
+  --color-none-soft: var(--none-soft);
+  --font-sans: var(--font-inter), var(--font-noto-arabic), var(--font-noto-tamil), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-jakarta), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-lexend: var(--font-lexend-family), var(--font-inter), sans-serif;
+  --font-atkinson: var(--font-atkinson-family), var(--font-inter), sans-serif;
+  --shadow-card: var(--shadow);
+  --shadow-soft: var(--shadow-sm);
+  --shadow-pop: var(--shadow-lg);
+}
+
+@layer base {
+  html {
+    background: var(--bg);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    min-height: 100dvh;
+  }
+  :lang(ar) { font-family: var(--font-noto-arabic), var(--font-inter), sans-serif; }
+  :lang(ta) { font-family: var(--font-noto-tamil), var(--font-inter), sans-serif; line-height: 1.85; }
+  ::selection { background: var(--accent-soft); }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button, [role='button'], summary, label[for] { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+}
+
+/* Motion: restrained, and off entirely when the reader asks for less. */
+@keyframes pp-fade-up { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes pp-reveal { from { background-color: var(--none-soft); transform: scale(0.6); } }
+@keyframes pp-pulse { 50% { opacity: 0.45; } }
+@keyframes pp-shimmer { to { background-position: -200% 0; } }
+@keyframes pp-caret { 50% { opacity: 0; } }
+
+.animate-fade-up { animation: pp-fade-up 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.animate-reveal { animation: pp-reveal 0.5s cubic-bezier(0.2, 0.9, 0.3, 1.3) both; animation-delay: calc(var(--i, 0) * 35ms); }
+.animate-soft-pulse { animation: pp-pulse 1.4s ease-in-out infinite; }
+.skeleton {
+  background: linear-gradient(90deg, var(--bg-subtle), var(--border), var(--bg-subtle));
+  background-size: 200% 100%;
+  animation: pp-shimmer 1.4s linear infinite;
+  border-radius: 6px;
+}
+.caret::after { content: ''; display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: text-bottom; background: var(--accent); animation: pp-caret 0.9s steps(2) infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-motion='full']) *, :root:not([data-motion='full']) *::before, :root:not([data-motion='full']) *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+[data-motion='reduce'] *, [data-motion='reduce'] *::before, [data-motion='reduce'] *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Evidence marks inside documents. */
+.mark { border-radius: 4px; box-decoration-break: clone; -webkit-box-decoration-break: clone; transition: background-color 0.2s, box-shadow 0.2s; }
+.mark[data-claims] { cursor: pointer; }
+.mark-matched { background: linear-gradient(transparent 78%, var(--ok-line) 0); }
+.mark-review { background: var(--warn-soft); box-shadow: inset 0 -2px 0 var(--warn-line); }
+.mark-mismatch, .mark-missing { background: var(--bad-soft); box-shadow: inset 0 -2px 0 var(--bad-line); }
+.mark-unverified, .mark-pending { background: linear-gradient(transparent 82%, var(--border-strong) 0); }
+.mark-unsupported { background: var(--bad-soft); text-decoration: underline wavy var(--bad); text-underline-offset: 4px; }
+.mark.is-selected { background: var(--accent-soft); box-shadow: 0 0 0 2px var(--accent-ring); }
+.mark-gloss { text-decoration: underline dotted var(--accent); text-underline-offset: 4px; cursor: help; }
+.is-speaking { background: var(--speak) !important; border-radius: 4px; }
+
+/* Reader view, controlled by the reader. */
+.reader { font-size: var(--reader-size, 17px); line-height: var(--reader-lh, 1.7); letter-spacing: var(--reader-ls, 0); word-spacing: var(--reader-ws, 0); }
+.reader.font-lexend { font-family: var(--font-lexend); }
+.reader.font-atkinson { font-family: var(--font-atkinson); }
+.reader.size-large { --reader-size: 19.5px; }
+.reader.size-xl { --reader-size: 22px; }
+.reader.spacing-wide { --reader-lh: 2; --reader-ls: 0.04em; --reader-ws: 0.14em; }
+.reader.line-focus.has-focus [data-s]:not(.is-focus) { opacity: 0.3; transition: opacity 0.2s; }
+
+@media print {
+  body * { visibility: hidden !important; }
+  .print-target, .print-target * { visibility: visible !important; }
+  .print-target { position: absolute; inset: 0; padding: 0 12mm; font-size: 13pt; }
+  .print-target .mark { background: none !important; box-shadow: none !important; text-decoration: none !important; }
+  .no-print { display: none !important; }
+}

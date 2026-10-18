@@ -1,0 +1,9 @@
+node_modules
+.next
+.next-e2e
+data
+tests/.tmp
+test-results
+playwright-report
+.env
+*.log
