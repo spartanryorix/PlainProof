@@ -10,6 +10,5 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npx next build
 ENV NODE_ENV=production DATA_DIR=/data HOSTNAME=0.0.0.0 PORT=3000
-VOLUME /data
 EXPOSE 3000
 CMD ["npx", "next", "start", "-p", "3000"]
